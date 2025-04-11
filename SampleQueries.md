@@ -1,0 +1,39 @@
+# Sample Queries
+
+## Find distinct emails per month
+
+```sql
+GRAPH UserIdentity
+MATCH (o:SalesOrder)-[h:HAS_EMAIL]->(e:Email) 
+RETURN  EXTRACT(YEAR FROM h.ts) AS Year, EXTRACT(MONTH FROM h.ts) AS Month,
+COUNT(DISTINCT e.email) as Email ORDER BY Month
+```
+## Find Innocent looking emails that are linked through devices to suspicious emails
+
+```sql
+GRAPH UserIdentity
+MATCH (e:Email{sus: 0})-[h:HAS_DEVICE]->(d:Device)<-[h2:HAS_DEVICE]-(e2:Email{sus:1})
+WHERE e.id != e2.id
+RETURN e.email AS PossiblyBad, e2.email AS KnownBad
+```
+
+## Graphically Find everything Linked to an Email
+
+```sql
+GRAPH UserIdentity
+MATCH p=(e:Email{email: "jamesparks@example.com" })-[h]->{1,3}(j)
+WHERE h[0].ts > "2025-04-01"
+RETURN SAFE_TO_JSON(p) AS JSON
+```
+
+## Which CCs are linked to the most suspicious transactions
+
+```sql
+GRAPH UserIdentity
+MATCH (s:SalesOrder{sus: 1})-[w]->{1,2}(cc:CC)
+RETURN cc.id as CreditCard, COUNT (cc.id) as CC_COUNT
+GROUP BY CreditCard
+ORDER BY CC_COUNT DESC LIMIT 10
+```
+
+## Which IPs are linked to the most CC's and give the probability

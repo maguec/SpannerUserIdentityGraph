@@ -1,0 +1,22 @@
+digraph diag {
+  node [shape=Mrecord, color=Blue, fillcolor=Blue, style=filled, fontcolor=white, fontname=helvetica];
+  edge [fontcolor=yellow, color=yellow,fontsize=8, fontname=helvetica];
+  bgcolor=black;
+  #nodesep=0.5;
+  #rankdir=LR;
+
+  Device [label="Device"];
+  IP [label="IP"];
+  CC [label="CC"];
+  Email [label="Email"];
+  SalesOrder [label="SalesOrder"];
+  ShippingAddress [label="ShippingAddress"];
+
+  Email -> Device [label=HAS_DEVICE];
+  Email -> CC [label=EMAIL_HAS_CC];
+  Device -> IP [label=HAS_IP];
+  Device -> CC [label=DEVICE_HAS_CC];
+  SalesOrder -> Email [label=HAS_EMAIL];
+  SalesOrder -> ShippingAddress [label=HAS_ADDRESS];
+
+}

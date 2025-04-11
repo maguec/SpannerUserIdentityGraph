@@ -1,0 +1,6 @@
+setuptools
+dataclass_csv
+google-cloud-spanner
+numpy
+alive_progress
+Faker
