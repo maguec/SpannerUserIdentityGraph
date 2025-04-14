@@ -44,6 +44,15 @@ Run through 1000 parameterized 2 hop queries to understand basic latency
 
 ```bash
 ./parameterize.py
+admin_@cloudshell:~/SpannerUserIdentityGraph/snippets$ ./parameterize.py 
+Finding bad actors |████████████████████████████████████████| 1000/1000 [100%] in 6.2s (162.45/s) 
+
+Database Query Time Statistics:
+Mean: 6.091185 ms
+p95 : 4.771419 ms
+p99 : 4.771489 ms
+
+Found 87 bad actors
 ```
 
 ### Get Order Shapes
@@ -52,4 +61,12 @@ Grab 1000 sample transactions and they run a query shape on each of those with t
 
 ```bash
 ./get_order_shapes.py
+admin_@cloudshell:~/SpannerUserIdentityGraph/snippets $ ./get_order_shapes.py 
+Getting a list of shapes
+Finding similar shapes |████████████████████████████████████████| 1000/1000 [100%] in 5.5s (181.70/s) 
+
+Database Query Time Statistics:
+Mean: 5.442143 ms
+p95 : 4.238226 ms
+p99 : 4.240366 ms
 ```
