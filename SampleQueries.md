@@ -50,3 +50,13 @@ GRAPH UserIdentity
  RETURN hs.ts AS TS, o.sus AS IS_SUSPECT
 ```
 
+## Find all Suspect Orders with and email and last4
+
+```sql
+GRAPH UserIdentity
+ MATCH (
+  cc:CC{last4: "2218"})<-[EMAIL_HAS_CC]-(
+    e:Email{email: "jeremy76@example.com"})<-[h:HAS_EMAIL]-(o:SalesOrder{sus: 1})
+    WHERE h.ts > "2025-02-01"
+ RETURN e.email AS EMAIL, cc.last4 AS LAST4, h.ts AS TS, o.id AS TRANSACT, o.sus AS IS_SUSPECT
+```
