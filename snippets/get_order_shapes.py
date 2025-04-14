@@ -29,6 +29,7 @@ if __name__ == "__main__":
                     "cc_id": row[4],
                 }
             )
+    print(good_order_shapes[0])
 
     with alive_bar(len(good_order_shapes), title="Finding similar shapes") as bar:
 

@@ -36,4 +36,17 @@ GROUP BY CreditCard
 ORDER BY CC_COUNT DESC LIMIT 10
 ```
 
-## Which IPs are linked to the most CC's and give the probability
+## When was the last time that we saw a transaction of this shape
+
+```sql
+GRAPH UserIdentity
+ MATCH (
+  cc:CC{last4: "8963", zip: "36206"})<-[EMAIL_HAS_CC]-(
+    e:Email{email:"kevin04@example.com"})<-[HAS_EMAIL]-(
+      o:SalesOrder)-[hs:HAS_ADDRESS]->(sa:ShippingAddress)
+ WHERE sa.id IN (
+    SELECT id FROM ShippingAddress WHERE
+    SEARCH_NGRAMS(address_Tokens, 'Hill AND Lodge AND 3608'))
+ RETURN hs.ts AS TS, o.sus AS IS_SUSPECT
+```
+

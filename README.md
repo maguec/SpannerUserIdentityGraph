@@ -31,11 +31,25 @@ pip install -r requirements.txt
 
 ## Benchmarking
 
-There is a sample Benchmarking script that runs a few hop queries to give a basic idea of end to end latency
+There are some sample Benchmarking scripts that give an idea of latency of various usage scenarios
 
 ```bash
 cd ./snippets
-./parameterize.py
 ```
 
 
+### 2 Hop Parameterized Queries
+
+Run through 1000 parameterized 2 hop queries to understand basic latency
+
+```bash
+./parameterize.py
+```
+
+### Get Order Shapes
+
+Grab 1000 sample transactions and they run a query shape on each of those with the Email, Address and CC id's to see if we see similar transaction shapes
+
+```bash
+./get_order_shapes.py
+```

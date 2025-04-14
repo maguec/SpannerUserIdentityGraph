@@ -15,7 +15,7 @@ with open("../data/CC.csv", "w") as csvfile:
     writer.writeheader()
     for i in range(constants.RECORD_COUNT):
         ccid = fake.credit_card_number(card_type="visa")[-4:]
-        pc = fake.postcode()[-5:]
+        pc = fake.postcode()
         writer.writerow(
             {
                 "id": uuid.UUID(int=i),
