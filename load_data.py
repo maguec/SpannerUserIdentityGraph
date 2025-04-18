@@ -4,7 +4,8 @@ from models.nodes import *
 from models.edges import *
 from google.cloud import spanner
 
-if __name__ == "__main__":
+def LoadData():
+
     s = spanner.Client()
     instance = s.instance("useridentity")
     client = instance.database("useridentitydb")
@@ -44,3 +45,6 @@ if __name__ == "__main__":
 
     has_emails = SalesOrderHasEmails()
     has_emails.load(client)
+
+if __name__ == "__main__":
+    LoadData()
