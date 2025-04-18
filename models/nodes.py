@@ -75,8 +75,8 @@ class CC:
     def __init__(self, item):
         self.id = item["id"]
         self.last4 = item["last4"]
-        self.sus = item["sus"]
         self.zip = item["zip"]
+        self.sus = int(item["sus"])
 
 
 @dataclass

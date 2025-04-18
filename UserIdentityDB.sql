@@ -4,7 +4,10 @@ CREATE TABLE ShippingAddress (
   id STRING(36) NOT NULL,
   address STRING(MAX),
   sus INT64,
+  address_Tokens TOKENLIST AS (TOKENIZE_NGRAMS(address, ngram_size_min=>3, ngram_size_max=>4)) HIDDEN,
 ) PRIMARY KEY (id);
+
+CREATE SEARCH INDEX StreetIndex ON ShippingAddress(address_Tokens);
 
 CREATE TABLE SalesOrder (
   id STRING(36) NOT NULL,
@@ -35,6 +38,8 @@ CREATE TABLE Email (
   email STRING(MAX),
   sus INT64,
 ) PRIMARY KEY (id);
+
+CREATE INDEX email_idx ON Email (email);
 
 -- Edge Tables
 
