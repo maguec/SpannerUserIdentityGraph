@@ -10,6 +10,8 @@ def LoadData():
     instance = s.instance("useridentity")
     client = instance.database("useridentitydb")
 
+    print("Loading Data...")
+
     emails = Emails()
     emails.load(client)
 
@@ -45,6 +47,8 @@ def LoadData():
 
     has_emails = SalesOrderHasEmails()
     has_emails.load(client)
+
+    print("Loading Complete...")
 
 if __name__ == "__main__":
     LoadData()

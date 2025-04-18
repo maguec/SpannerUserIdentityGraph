@@ -5,3 +5,4 @@ google-cloud-spanner
 numpy
 alive_progress
 Faker
+spanner-graph-notebook
