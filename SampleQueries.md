@@ -26,6 +26,23 @@ WHERE h[0].ts > "2025-04-01"
 RETURN SAFE_TO_JSON(p) AS JSON
 ```
 
+## Graphically Show All Addreses with a Specific User Identity
+
+```sql
+GRAPH UserIdentity
+MATCH p=(x:Email{email: "gloriastokes@example.org"})<-[:HAS_EMAIL]-(o2:SalesOrder)-[:HAS_ADDRESS]->(a:ShippingAddress)
+RETURN SAFE_TO_JSON(p) AS JSON_ARRAY
+```
+## Graphically Show All Emails sharing an Address with a specific User Identity (one more hop)
+
+```sql
+GRAPH UserIdentity
+MATCH p=(x:Email{email: "gloriastokes@example.org"})<-[:HAS_EMAIL]-(o2:SalesOrder)-[:HAS_ADDRESS]->(a:ShippingAddress)<-[:HAS_ADDRESS]-(o:SalesOrder)-[h:HAS_EMAIL]->(e:Email) 
+WHERE e.email != "gloriastokes@example.org"
+RETURN SAFE_TO_JSON(p) AS JSON_ARRAY
+
+```
+
 ## Which CCs are linked to the most suspicious transactions
 
 ```sql

@@ -1,7 +1,10 @@
 # User Identity Graph
 
-Let's build an Identity graph
+Let's build an Identity graph that connects various aspects of customers for our retail website.
 
+Spotting order shapes such as Devices, Credit Cards and Shipping Addresses help to establish legitimate usage patterns.
+
+Finding shared data across identities also allows providers to customize offers and provide better recommendations. 
 
 ## Sample Data
 ![map](./docs/graph.png)
