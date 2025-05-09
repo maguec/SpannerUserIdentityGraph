@@ -17,9 +17,11 @@ WHERE e.id != e2.id
 RETURN e.email AS PossiblyBad, e2.email AS KnownBad
 ```
 
-```sql GRAPH UserIdentity
+```sql 
+GRAPH UserIdentity
 MATCH p=(e:Email{email:'david93@example.com'})-[h:HAS_DEVICE]->(d:Device)<-[h2:HAS_DEVICE]-(e2:Email{email: 'operez@example.org'})
-RETURN SAFE_TO_JSON(p) AS JSON```
+RETURN SAFE_TO_JSON(p) AS JSON
+```
 
 ## Graphically Find everything Linked to an Email
 
