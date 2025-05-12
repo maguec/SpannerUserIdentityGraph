@@ -6,7 +6,7 @@ Spotting order shapes such as Devices, Credit Cards and Shipping Addresses help 
 
 Finding shared data across identities also allows providers to customize offers and provide better recommendations. 
 
-This demo also includes a Chatbot powered by (Agent Development Kit)[https://google.github.io/adk-docs/] and (GenAI Toolbox)[https://github.com/googleapis/genai-toolbox]
+This demo also includes a Chatbot powered by [Agent Development Kit](https://google.github.io/adk-docs/) and [GenAI Toolbox](https://github.com/googleapis/genai-toolbox)
 
 ## Sample Data
 ![map](./docs/graph.png)
