@@ -25,7 +25,22 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Download the Toolbox
+
+```bash
+# If on linux
+make getmcplinux
+
+# If on Mac
+make getmcpmac
+```
+
 ## Start the Toolbox
+
+```bash
+make runtoolbox
+```
+## Start the Agent Kit
 
 ```bash
 adk web
@@ -48,6 +63,3 @@ is kevin04@example.com involved in any suspicious transactions?
 ```
 get me all information for the email jenniferhampton@example.org
 ```
-
-
-
