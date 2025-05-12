@@ -31,17 +31,23 @@ pip install -r requirements.txt
 adk web
 ```
 
+Select either the report_agent or graph agent
+![agent_select](./docs/select_agent.png)
+
 ## Ask some questions
 
+```
+What can you do?
+```
+![abilities](./docs/ask_capabilites.png)
 ```
 is kevin04@example.com involved in any suspicious transactions?
 ```
 
+![ask](./docs/answer_question.png)
 ```
 get me all information for the email jenniferhampton@example.org
 ```
-```
 
-```
 
 
