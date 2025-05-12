@@ -3,3 +3,8 @@ models/__pycache__/*
 generators/__pycache__/*
 .ipynb_checkpoints/*
 __pycache__/*
+GraphAgent/toolbox
+GraphAgent/.venv/*
+GraphAgent/.env
+GraphAgent/*/.env
+GraphAgent/*/__pycache__

@@ -1,0 +1,95 @@
+sources:
+  spanner-graph:
+    database: useridentitydb
+    instance: useridentity
+    kind: spanner
+    project: mague-tf
+
+tools:
+  query-email-sus:
+    description: See if an email has been marked as suspicious
+    kind: spanner-sql
+    parameters:
+    - description: Email address
+      name: email
+      type: string
+    source: spanner-graph
+    statement: SELECT sus AS IS_SUSPECT from Email WHERE Email.email = @email;
+  query-email-cc:
+    description: See if an email has been tied to any suspicious credit cards
+    kind: spanner-sql
+    parameters:
+    - description: Email address
+      name: email
+      type: string
+    source: spanner-graph
+    statement: >
+      GRAPH UserIdentity
+       MATCH (cc:CC)<-[EMAIL_HAS_CC]-(
+          e:Email{email: @email})
+       RETURN  MAX(cc.sus) as IS_SUSPECT
+
+  query-email-orders:
+    description: See if an email has been tied to any suspicious orders
+    kind: spanner-sql
+    parameters:
+    - description: Email address
+      name: email
+      type: string
+    source: spanner-graph
+    statement: >
+      GRAPH UserIdentity
+       MATCH (
+        e:Email{email:@email})<-[HAS_EMAIL]-(o:SalesOrder)
+          -[hs:HAS_ADDRESS]->(sa:ShippingAddress)
+       RETURN COUNT(hs.ts) AS TransactionCount, MAX(o.sus) AS IS_SUSPECT
+
+  report-suspicious-transactions:
+    description: Report suspicious transaction counts by month
+    kind: spanner-sql
+    source: spanner-graph
+    parameters:
+    statement: >
+      GRAPH UserIdentity
+       MATCH (
+         o:SalesOrder{sus:1})-[h:HAS_EMAIL]->(e:Email)
+         RETURN  EXTRACT(MONTH FROM h.ts) AS Month, 
+          COUNT(o.id) AS TransactionCount ORDER BY Month DESC
+
+  report-all-connections:
+    description: Report on everything connected to a specific email and format this as text by node labels
+    kind: spanner-sql
+    source: spanner-graph
+    parameters:
+    - description: Email address
+      name: email
+      type: string
+    statement: >
+      GRAPH UserIdentity
+      MATCH p=(e:Email{email: @email })-[h]->{1,3}(j)
+      RETURN SAFE_TO_JSON(p) AS JSON
+
+  report-all-nodes:
+    description: Given a node type in CC, Device, Email, Salesorder, IP return the Count by suspected status
+    kind: spanner-sql
+    source: spanner-graph
+    parameters:
+    - description: Label in CC, Device, Email, Salesorder, IP
+      name: label
+      type: string
+    statement: >
+      GRAPH UserIdentity
+       MATCH (w)
+       WHERE ARRAY_FIRST(LABELS(w)) = @label
+       RETURN w.sus AS IS_SUSPECT, COUNT(w.id) as COUNT
+       GROUP BY IS_SUSPECT
+
+toolsets:
+  query-email:
+    - query-email-sus
+    - query-email-cc
+    - query-email-orders
+  reports:
+    - report-suspicious-transactions
+    - report-all-connections
+    - report-all-nodes
