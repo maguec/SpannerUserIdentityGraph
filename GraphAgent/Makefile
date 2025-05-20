@@ -20,5 +20,5 @@ genmcpconfig: ## Generate MCP config
 	@echo "Generating MCP config"
 	@python3 ./generate_config.py 
 
-runtoolbox:
+runtoolbox: ## Run the toolbox command
 	@./toolbox --tools-file tools.yaml
