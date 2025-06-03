@@ -37,8 +37,10 @@ CREATE TABLE Email (
   id STRING(36) NOT NULL,
   email STRING(MAX),
   sus INT64,
+  email_Tokens TOKENLIST AS (TOKENIZE_NGRAMS(email, ngram_size_min=>3, ngram_size_max=>4)) HIDDEN,
 ) PRIMARY KEY (id);
 
+CREATE SEARCH INDEX EmailIndex ON Email(email_Tokens);
 CREATE INDEX email_idx ON Email (email);
 
 -- Edge Tables
