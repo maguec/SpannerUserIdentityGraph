@@ -69,6 +69,34 @@ tools:
       MATCH p=(e:Email{email: @email })-[h]->{1,3}(j)
       RETURN SAFE_TO_JSON(p) AS JSON
 
+  get-transaction-shape:
+    description: Given the last4 digits, zip code, email address and shipping address search for similarly shaped transaction
+    kind: spanner-sql
+    source: spanner-graph
+    parameters:
+    - description: email
+      name: email
+      type: string
+    - description: last4
+      name: last4
+      type: string
+    - description: zip
+      name: zip
+      type: string
+    - description: address
+      name: address
+      type: string
+    statement: >
+      GRAPH UserIdentity
+      MATCH (
+        cc:CC{last4: @last4, zip: @zip})<-[EMAIL_HAS_CC]-(
+          e:Email{email:@email})<-[HAS_EMAIL]-(
+            o:SalesOrder)-[hs:HAS_ADDRESS]->(sa:ShippingAddress)
+        WHERE sa.id IN (
+          SELECT id FROM ShippingAddress WHERE
+          SEARCH_NGRAMS(address_Tokens, @address))
+      RETURN hs.ts AS TS, o.sus AS IS_SUSPECT, sa.address as Addr
+
   report-all-nodes:
     description: Given a node type in CC, Device, Email, Salesorder, IP return the Count by suspected status
     kind: spanner-sql
@@ -93,3 +121,5 @@ toolsets:
     - report-suspicious-transactions
     - report-all-connections
     - report-all-nodes
+  shapes:
+    - get-transaction-shape
