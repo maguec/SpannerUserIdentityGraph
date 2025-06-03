@@ -50,10 +50,10 @@ GRAPH UserIdentity
   cc:CC{last4: "8963", zip: "36206"})<-[EMAIL_HAS_CC]-(
     e:Email{email:"kevin04@example.com"})<-[HAS_EMAIL]-(
       o:SalesOrder)-[hs:HAS_ADDRESS]->(sa:ShippingAddress)
- WHERE sa.id IN (
+  WHERE sa.id IN (
     SELECT id FROM ShippingAddress WHERE
-    SEARCH_NGRAMS(address_Tokens, 'Hill AND Lodge AND 3608'))
- RETURN hs.ts AS TS, o.sus AS IS_SUSPECT
+    SEARCH_NGRAMS(address_Tokens, '18041 AND Berg AND Brandyhaven'))
+ RETURN hs.ts AS TS, o.sus AS IS_SUSPECT, sa.address as Addr
 ```
 
 ## Find all Suspect Orders with and email and last4
