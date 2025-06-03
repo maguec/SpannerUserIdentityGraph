@@ -7,13 +7,13 @@ help:  ## Display this help
 getmcplinux: ## Download Linux MCP
 	@echo "Downloading MCP for Linux"
 	@rm -rf toolbox
-	@wget https://storage.googleapis.com/genai-toolbox/v0.5.0/linux/amd64/toolbox
+	@wget https://storage.googleapis.com/genai-toolbox/v0.6.0/linux/amd64/toolbox
 	@chmod +x toolbox
 
 getmcpmac: ## Download Mac MCP
 	@echo "Downloading MCP for Mac"
 	@rm -rf toolbox
-	@wget https://storage.googleapis.com/genai-toolbox/v0.5.0/darwin/arm64/toolbox
+	@wget https://storage.googleapis.com/genai-toolbox/v0.6.0/darwin/arm64/toolbox
 	@chmod +x toolbox
 
 genmcpconfig: ## Generate MCP config
@@ -21,4 +21,4 @@ genmcpconfig: ## Generate MCP config
 	@python3 ./generate_config.py 
 
 runtoolbox: ## Run the toolbox command
-	@./toolbox --tools-file tools.yaml
+	@./toolbox --tools-file tools.yaml --log-level DEBUG
