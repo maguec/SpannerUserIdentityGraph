@@ -16,7 +16,7 @@ with open("../data/ShippingAddress.csv", "w") as csvfile:
         writer.writerow(
             {
                 "id": uuid.UUID(int=i),
-                "address": fake.address().replace("\n", ""),
+                "address": fake.address().replace("\n", " "),
                 "sus": is_sus()
             }
         )
