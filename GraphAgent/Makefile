@@ -21,4 +21,4 @@ genmcpconfig: ## Generate MCP config
 	@python3 ./generate_config.py 
 
 runtoolbox: ## Run the toolbox command
-	@./toolbox --tools-file tools.yaml
+	@./toolbox --tools-file tools.yaml --log-level DEBUG
