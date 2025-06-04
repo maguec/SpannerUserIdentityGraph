@@ -73,6 +73,7 @@ tools:
     description: Given the last4 digits, zip code, email address and shipping address search for similarly shaped transaction
     kind: spanner-sql
     source: spanner-graph
+    readOnly: true
     parameters:
     - description: email
       name: email
