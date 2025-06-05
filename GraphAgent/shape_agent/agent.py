@@ -1,8 +1,8 @@
 from google.adk.agents import Agent
-from google.adk.tools.toolbox_tool import ToolboxTool
+from toolbox_core import ToolboxSyncClient
 
-toolbox = ToolboxTool("http://127.0.0.1:5000")
-tools = toolbox.get_toolset(toolset_name='shapes')
+toolbox = ToolboxSyncClient("http://127.0.0.1:5000")
+tools = toolbox.load_toolset('shapes')
 
 root_agent = Agent(
     model='gemini-2.0-flash-001',

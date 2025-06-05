@@ -1,5 +1,5 @@
 toolbox-core
 toolbox-langchain
-google-adk==0.5.0
+google-adk==1.2.1
 toolbox-langchain
 langchain
