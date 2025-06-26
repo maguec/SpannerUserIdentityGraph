@@ -30,6 +30,7 @@ CREATE TABLE CC(
 CREATE TABLE Device (
   id STRING(36) NOT NULL,
   sus INT64,
+  phone STRING(20),
 ) PRIMARY KEY (id);
 
 

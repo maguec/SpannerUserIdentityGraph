@@ -8,10 +8,12 @@ import csv
 class Device:
     id: str
     sus: int
+    phone: str
 
     def __init__(self, item):
         self.id = item["id"]
         self.sus = item["sus"]
+        self.phone = item["phone"]
 
 
 @dataclass
