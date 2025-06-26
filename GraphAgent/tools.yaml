@@ -6,6 +6,29 @@ sources:
     project: mague-tf
 
 tools:
+  lookup_account_by_email:
+    description: Find the account number for a given email address
+    kind: spanner-sql
+    parameters:
+    - description: Email address
+      name: email
+      type: string
+    source: spanner-graph
+    statement: SELECT id AS AccountId, email, sus as IS_SUSPECT from Email as e where e.email = @email;
+
+  lookup_account_by_phonenumber:
+    description: Find the account number for a given phone number
+    kind: spanner-sql
+    parameters:
+    - description: Phone Number
+      name: phone
+      type: string
+    source: spanner-graph
+    statement: >
+      GRAPH UserIdentity
+      MATCH (d:Device{phone: @phone})<-[:HAS_DEVICE]-(e:Email)
+      RETURN e.id as UserId, e.sus as IS_SUSPECT
+
   query-email-sus:
     description: See if an email has been marked as suspicious
     kind: spanner-sql
@@ -124,3 +147,6 @@ toolsets:
     - report-all-nodes
   shapes:
     - get-transaction-shape
+  customerservice:
+    - lookup_account_by_email
+    - lookup_account_by_phonenumber
