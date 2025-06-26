@@ -29,6 +29,32 @@ tools:
       MATCH (d:Device{phone: @phone})<-[:HAS_DEVICE]-(e:Email)
       RETURN e.id as UserId, e.sus as IS_SUSPECT
 
+  lookup_creditcard_by_userid:
+    description: Giventhe user id which is a UUID show all associated credit cards
+    kind: spanner-sql
+    parameters:
+    - description: User Id
+      name: user_id
+      type: string
+    source: spanner-graph
+    statement: >
+      GRAPH UserIdentity
+      MATCH (e:Email{id: @user_id})-[:EMAIL_HAS_CC]->(cc:CC)
+      RETURN e.id as ID, cc.last4 AS CC_LAST4, cc.zip AS CC_ZIP, cc.sus AS IS_SUSPECT, cc.id as CC_ID LIMIT 10;
+
+  lookup_orders_by_userid:
+    description: Given the user id which is a UUID display all of their shipping addresses
+    kind: spanner-sql
+    parameters:
+    - description: User Id
+      name: user_id
+      type: string
+    source: spanner-graph
+    statement: >
+      GRAPH UserIdentity
+      MATCH (e:Email{id: @user_id})<-[:HAS_EMAIL]-(s:SalesOrder)-[:HAS_ADDRESS]->(a:ShippingAddress)
+      RETURN a.address AS ShippingAddress, s.sus as IS_SUSPECT
+
   query-email-sus:
     description: See if an email has been marked as suspicious
     kind: spanner-sql
@@ -38,6 +64,7 @@ tools:
       type: string
     source: spanner-graph
     statement: SELECT sus AS IS_SUSPECT from Email WHERE Email.email = @email;
+
   query-email-cc:
     description: See if an email has been tied to any suspicious credit cards
     kind: spanner-sql
@@ -150,3 +177,5 @@ toolsets:
   customerservice:
     - lookup_account_by_email
     - lookup_account_by_phonenumber
+    - lookup_orders_by_userid
+    - lookup_creditcard_by_userid
