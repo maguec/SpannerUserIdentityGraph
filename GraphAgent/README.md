@@ -46,20 +46,7 @@ make runtoolbox
 adk web
 ```
 
-Select either the report_agent or graph agent
-![agent_select](./docs/select_agent.png)
+## Run Some Sample queries
 
-## Ask some questions
+[Sample Queries](./SampleScript.md)
 
-```
-What can you do?
-```
-![abilities](./docs/ask_capabilites.png)
-```
-is kevin04@example.com involved in any suspicious transactions?
-```
-
-![ask](./docs/answer_question.png)
-```
-get me all information for the email jenniferhampton@example.org
-```

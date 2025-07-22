@@ -53,7 +53,7 @@ tools:
     statement: >
       GRAPH UserIdentity
       MATCH (e:Email{id: @user_id})<-[:HAS_EMAIL]-(s:SalesOrder)-[:HAS_ADDRESS]->(a:ShippingAddress)
-      RETURN a.address AS ShippingAddress, s.sus as IS_SUSPECT
+      RETURN a.address AS ShippingAddress, s.id AS ORDER_ID, s.sus as ORDER_SUSPECT, a.sus AS ShippingAddress_SUSPECT
 
   query-email-sus:
     description: See if an email has been marked as suspicious
