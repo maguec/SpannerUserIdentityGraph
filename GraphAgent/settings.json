@@ -1,0 +1,11 @@
+{
+  "theme": "Default",
+  "selectedAuthType": "oauth-personal",
+  "mcpServers": {
+    "userIdentity": {
+      "command": "<THIS_DIRECTORY>/toolbox",
+      "args": ["--tools-file", "<THIS_DIRECTORY>/tools.yaml", "--stdio"],
+      "trust": true
+    }
+  }
+}

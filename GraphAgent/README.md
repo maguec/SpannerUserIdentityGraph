@@ -50,3 +50,6 @@ adk web
 
 [Sample Queries](./SampleScript.md)
 
+## Gemini-cli
+
+This also contains a sample [setttings.json](./settings.json) file for configuring the MCP server for [Gemini cli tool](https://github.com/google-gemini/gemini-cli)
