@@ -66,3 +66,12 @@ GRAPH UserIdentity
     WHERE h.ts > "2025-02-01"
  RETURN e.email AS EMAIL, cc.last4 AS LAST4, h.ts AS TS, o.id AS TRANSACT, o.sus AS IS_SUSPECT
 ```
+
+## Link and order wherever we can more preformantly
+```sql
+GRAPH UserIdentity
+MATCH p=
+  (o:SalesOrder{id: "00000000-0000-0000-0000-000000000017" })-[h:(HAS_EMAIL|HAS_ADDRESS)]->(e:(Email|ShippingAddress))
+return o.id AS SALES_ID, ARRAY_FIRST(LABELS(h)) AS RELATION, 
+  e.id AS TARGET_ID, ARRAY_FIRST(LABELS(e)) AS LABEL
+```
