@@ -3,7 +3,7 @@ sources:
     database: useridentitydb
     instance: useridentity
     kind: spanner
-    project: mague-tf
+    project: ${GOOGLE_CLOUD_PROJECT}
 
 tools:
   lookup_account_by_email:
